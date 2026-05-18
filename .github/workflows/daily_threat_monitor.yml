@@ -1,0 +1,41 @@
+name: Cyber Security Threat Monitor Autopilot
+
+# 1. Set the background schedule (Runs completely automatically on cron schedule)
+on:
+  schedule:
+    # Trigger every single day at 9:00 AM Indian Standard Time (3:30 AM UTC)
+    - cron: '30 3 * * *'
+  
+  # Allows you to also trigger the script manually from the GitHub website if you want to test it!
+  workflow_dispatch:
+
+jobs:
+  run-threat-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step A: Pull your latest python code files from the repository storage closet
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
+
+    # Step B: Spin up a clean, dynamic cloud execution environment running Python
+    - name: Setup Cloud Python Engine
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    # Step C: Install your required library packages from your requirements.txt
+    - name: Install System Framework Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Step D: Run your complete centralized cybersecurity threat pipeline engine!
+    - name: Execute Main Orchestration Script
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: python main.py

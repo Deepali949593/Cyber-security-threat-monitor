@@ -1,0 +1,18 @@
+# Ignore the Python virtual sandbox environment
+venv/
+.venv/
+env/
+
+# Ignore local secret database connection strings and keys
+.env
+
+# Ignore operational runtime logging histories
+logs/*.log
+
+# Ignore local system cached data artifacts
+__pycache__/
+*.pyc
+
+# Ignore temporary Power BI lock states or metadata logs
+*.pbit
+*.pbix.lock
